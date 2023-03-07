@@ -4,11 +4,14 @@ import requests
 import requests
 
 def write_page(url, file_path):
+    # Make a GET request to the URL
     response = requests.get(url)
     
+    # Check if the response was successful
     if response.status_code == 200:
-        with open(file_path, 'w') as f:
-            f.write(response)
+        # Write the HTML content to the file
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(response.text)
         print(f"HTML file written to {file_path}")
     else:
         print("Failed to write HTML file")
