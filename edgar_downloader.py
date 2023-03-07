@@ -29,7 +29,7 @@ def download_files_10k(ticker : str, destination_folder : str):
                     Note: Does not need the root file path
 
     '''
-    def get_CIK_number(ticker : str):
+    def get_CIK_number(ticker : str, padded = True):
         '''
         
         Fucntion to obtain the CIK identifier for a given company ticker.
@@ -45,18 +45,40 @@ def download_files_10k(ticker : str, destination_folder : str):
         company_info = response.values()
         for company in company_info:
             if company['ticker'] == ticker:
-                output = company['cik_str']
-        if len(str(output)) < 10:
-            padded_output = str(output).rjust(10, '0')
-            return padded_output
+                output = str(company['cik_str'])
+        if padded == True:
+            if len(str(output)) < 10:
+                padded_output = output.rjust(10, '0')
+                return padded_output
+            else:
+                return output
         else:
             return output
     
-    submissions_url = 'https://data.sec.gov/submissions/CIK' + get_CIK_number(ticker) + '.json'
-    file = requests.get(submissions_url)
-    response = file.json()
-    ten_k_index_positions = []
-    print(response)
+    cik_number = get_CIK_number(ticker)
+    
+    submissions_url = 'https://data.sec.gov/submissions/CIK' + cik_number + '.json'
+    r = requests.get(submissions_url, headers = {'User-Agent' : 'williamrenouf@kubrickgroup.com'})
+    response = r.json()
+    
+    form_type_list = response['filings']['recent']['primaryDocDescription']
+    index_positions = [i for i,form in enumerate(form_type_list) if form == '10-K']
+
+    accession_number_list = []
+    primary_document_list = []
+    for i in index_positions:
+        num = response['filings']['recent']['accessionNumber'][i]
+        new_num = num.replace('-', '')
+        accession_number_list.append(new_num)
+        url_str = response['filings']['recent']['primaryDocument'][i]
+        primary_document_list.append(url_str)
+
+    
+    ten_k_url = 'https://www.sec.gov/Archives/edgar/data/' + get_CIK_number(ticker, False) + '/' + accession_number_list[0] + '/' + primary_document_list[0]
+    print(ten_k_url)
+    
+
+
 
 
 
@@ -65,7 +87,8 @@ def download_files_10k(ticker : str, destination_folder : str):
 
 download_files_10k('AAPL', 1)
 
-response['filings']['recents']['accessionNumber'] #list of accession number eg "0001104659-23-028445"
-response['filings']['recents']['filingDate'] #list of filing dates eg "2023-03-03"
-response['filings']['recents']['primaryDocDescription'] #list of all the pdescriptions
-response['filings']['recents']['primaryDocDescription']['10-K'] # index of 10-k
+#response['filings']['recents']['accessionNumber'] #list of accession number eg "0001104659-23-028445"
+#response['filings']['recents']['filingDate'] #list of filing dates eg "2023-03-03"
+#response['filings']['recents']['primaryDocDescription'] #list of all the pdescriptions
+#response['filings']['recents']['primaryDocDescription']['10-K'] # index of 10-k
+#headers = {'User-Agent' : 'williamrenouf@kubrickgroup.com'}
