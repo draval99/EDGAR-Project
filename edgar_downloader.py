@@ -3,11 +3,14 @@ import requests
 #Athul
 
 def write_page(url, file_path):
+    # Make a GET request to the URL
     response = requests.get(url)
     
+    # Check if the response was successful
     if response.status_code == 200:
-        with open(file_path, 'w') as f:
-            f.write(response)
+        # Write the HTML content to the file
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(response.text)
         print(f"HTML file written to {file_path}")
     else:
         print("Failed to write HTML file")
@@ -61,3 +64,8 @@ def download_files_10k(ticker : str, destination_folder : str):
     
 
 download_files_10k('AAPL', 1)
+
+response['filings']['recents']['accessionNumber'] #list of accession number eg "0001104659-23-028445"
+response['filings']['recents']['filingDate'] #list of filing dates eg "2023-03-03"
+response['filings']['recents']['primaryDocDescription'] #list of all the pdescriptions
+response['filings']['recents']['primaryDocDescription']['10-K'] # index of 10-k
