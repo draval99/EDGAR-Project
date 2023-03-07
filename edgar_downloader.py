@@ -4,7 +4,7 @@ import requests
 
 def write_page(url, file_path):
     # Make a GET request to the URL
-    response = requests.get(url)
+    response = requests.get(url, headers = {'User-Agent' : 'williamrenouf@kubrickgroup.com'})
     
     # Check if the response was successful
     if response.status_code == 200:
@@ -73,22 +73,16 @@ def download_files_10k(ticker : str, destination_folder : str):
         url_str = response['filings']['recent']['primaryDocument'][i]
         primary_document_list.append(url_str)
 
+    print(accession_number_list)
+    print(primary_document_list)
+    url_list = []
+    for i,num in enumerate(accession_number_list):
+        ten_k_url = 'https://www.sec.gov/Archives/edgar/data/' + get_CIK_number(ticker, False) + '/' + num + '/' + primary_document_list[i]
+        url_list.append(ten_k_url)
     
-    ten_k_url = 'https://www.sec.gov/Archives/edgar/data/' + get_CIK_number(ticker, False) + '/' + accession_number_list[0] + '/' + primary_document_list[0]
-    print(ten_k_url)
+    for url in url_list:
+        write_page(url, destination_folder)
     
 
+download_files_10k('AAPL', R'C:\Users\William Renouf\OneDrive - Kubrick Group\Documents\Python\edgar_project\test_folder')
 
-
-
-
-    
-    
-
-download_files_10k('AAPL', 1)
-
-#response['filings']['recents']['accessionNumber'] #list of accession number eg "0001104659-23-028445"
-#response['filings']['recents']['filingDate'] #list of filing dates eg "2023-03-03"
-#response['filings']['recents']['primaryDocDescription'] #list of all the pdescriptions
-#response['filings']['recents']['primaryDocDescription']['10-K'] # index of 10-k
-#headers = {'User-Agent' : 'williamrenouf@kubrickgroup.com'}
