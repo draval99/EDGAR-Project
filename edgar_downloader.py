@@ -48,3 +48,8 @@ def download_files_10k(ticker : str, destination_folder : str):
     
 
 download_files_10k('AAPL', 1)
+
+response['filings']['recents']['accessionNumber'] #list of accession number eg "0001104659-23-028445"
+response['filings']['recents']['filingDate'] #list of filing dates eg "2023-03-03"
+response['filings']['recents']['primaryDocDescription'] #list of all the pdescriptions
+response['filings']['recents']['primaryDocDescription']['10-K'] # index of 10-k
