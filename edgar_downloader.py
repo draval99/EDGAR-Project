@@ -20,6 +20,6 @@ def download_files_10k(ticker : str, destination_folder : str):
     the destination folder path.
     '''
 
-    if index == '10-k'
+    if index == '10-k':
          write_file(f,destination_folder)
     
