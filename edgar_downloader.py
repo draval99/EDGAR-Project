@@ -1,7 +1,6 @@
 import requests
 
 #Athul
-import requests
 
 def write_page(url, file_path):
     response = requests.get(url)
@@ -20,8 +19,22 @@ def download_files_10k(ticker : str, destination_folder : str):
     '''
     Downloads the all the 10-k files for the given ticker and puts them into
     the destination folder path.
+
+    1st Arguement - Company ticker - Required to be string
+
+    2nd Arguement - Folder to write 10-k HTML files to 
+                    Note: Does not need the root file path
+
     '''
     def get_CIK_number(ticker : str):
+        '''
+        
+        Fucntion to obtain the CIK identifier for a given company ticker.
+
+        Fucntion Arguements:
+            1st Arguement - Company ticker - Required to be string
+
+        '''
 
         url = r'https://www.sec.gov/files/company_tickers.json'
         r = requests.get(url)
@@ -37,11 +50,14 @@ def download_files_10k(ticker : str, destination_folder : str):
             return output
     
     submissions_url = 'https://data.sec.gov/submissions/CIK' + get_CIK_number(ticker) + '.json'
-    print(submissions_url)
+    file = requests.get(submissions_url)
+    response = file.json()
+    ten_k_index_positions = []
+    print(response)
 
-    #for url in url_list:
-        #if index == '10-k':
-            #write_file(url, destination_folder)
+
+
+    
     
 
 download_files_10k('AAPL', 1)
