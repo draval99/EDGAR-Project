@@ -1,4 +1,5 @@
 import requests
+import time
 
 #Athul
 
@@ -72,6 +73,7 @@ def download_files_10k(ticker : str, destination_folder : str):
     
     submissions_url = 'https://data.sec.gov/submissions/CIK' + cik_number + '.json'
     r = requests.get(submissions_url, headers = {'User-Agent' : 'williamrenouf@kubrickgroup.com'})
+    time.sleep(0.1) # To avoid hitting the cap on api calls
     response = r.json()
     
     form_type_list = response['filings']['recent']['primaryDocDescription']
@@ -80,6 +82,7 @@ def download_files_10k(ticker : str, destination_folder : str):
     accession_number_list = []
     primary_document_list = []
     date_list = []
+
     for i in index_positions:
         num = response['filings']['recent']['accessionNumber'][i]
         new_num = num.replace('-', '')
@@ -89,14 +92,11 @@ def download_files_10k(ticker : str, destination_folder : str):
         date = response['filings']['recent']['filingDate'][i]
         date_list.append(date)
     
-    
-    url_list = []
     for i,num in enumerate(primary_document_list):
         ten_k_url = 'https://www.sec.gov/Archives/edgar/data/' + get_CIK_number(ticker, False) + '/' + accession_number_list[i] + '/' + num
         date = date_list[i]
-        url_list.append(ten_k_url)
-        filepath = destination_folder + f'\{ticker + date}.html'
+        filepath = destination_folder + f'\{ticker}' + '_' + f'{date}.html'
         write_page(ten_k_url, filepath)
     
-download_files_10k('AAPL', R'C:\Users\William Renouf\OneDrive - Kubrick Group\Documents\Python\edgar_project\test_folder')
+download_files_10k('AMZN', R'C:\Users\William Renouf\OneDrive - Kubrick Group\Documents\Python\edgar_project\test_folder')
 
