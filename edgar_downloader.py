@@ -74,8 +74,6 @@ def download_files_10k(ticker : str, destination_folder : str):
         url_str = response['filings']['recent']['primaryDocument'][i]
         primary_document_list.append(url_str)
 
-    print(accession_number_list)
-    print(primary_document_list)
     url_list = []
     for i,num in enumerate(accession_number_list):
         ten_k_url = 'https://www.sec.gov/Archives/edgar/data/' + get_CIK_number(ticker, False) + '/' + num + '/' + primary_document_list[i]
