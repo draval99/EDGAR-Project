@@ -79,22 +79,24 @@ def download_files_10k(ticker : str, destination_folder : str):
 
     accession_number_list = []
     primary_document_list = []
+    date_list = []
     for i in index_positions:
         num = response['filings']['recent']['accessionNumber'][i]
         new_num = num.replace('-', '')
         accession_number_list.append(new_num)
         url_str = response['filings']['recent']['primaryDocument'][i]
         primary_document_list.append(url_str)
-
+        date = response['filings']['recent']['filingDate'][i]
+        date_list.append(date)
+    
+    
     url_list = []
     for i,num in enumerate(primary_document_list):
         ten_k_url = 'https://www.sec.gov/Archives/edgar/data/' + get_CIK_number(ticker, False) + '/' + accession_number_list[i] + '/' + num
+        date = date_list[i]
         url_list.append(ten_k_url)
-        filepath = destination_folder + f'\{num}'
+        filepath = destination_folder + f'\{ticker + date}.html'
         write_page(ten_k_url, filepath)
-
     
-    
-
 download_files_10k('AAPL', R'C:\Users\William Renouf\OneDrive - Kubrick Group\Documents\Python\edgar_project\test_folder')
 
