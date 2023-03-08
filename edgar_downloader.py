@@ -98,5 +98,5 @@ def download_files_10k(ticker : str, destination_folder : str):
         filepath = destination_folder + f'\{ticker}' + '_' + f'{date}.html'
         write_page(ten_k_url, filepath)
     
-download_files_10k('AMZN', R'C:\Users\William Renouf\OneDrive - Kubrick Group\Documents\Python\edgar_project\test_folder')
+download_files_10k('GOOGL', R'C:\Users\William Renouf\OneDrive - Kubrick Group\Documents\Python\edgar_project\test_folder')
 
