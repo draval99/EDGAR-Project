@@ -81,8 +81,9 @@ def download_files_10k(ticker : str, destination_folder : str):
         ten_k_url = 'https://www.sec.gov/Archives/edgar/data/' + get_CIK_number(ticker, False) + '/' + num + '/' + primary_document_list[i]
         url_list.append(ten_k_url)
     
+    filepath = destination_folder + '/' + ticker + 'filingdate' + '.html'
     for url in url_list:
-        write_page(url, destination_folder)
+        write_page(url, filepath)
     
 
 download_files_10k('AAPL', R'C:\Users\William Renouf\OneDrive - Kubrick Group\Documents\Python\edgar_project\test_folder')
