@@ -11,6 +11,7 @@ def write_page(url, file_path):
         # Write the HTML content to the file
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(response.text)
+            f.close()
         print(f"HTML file written to {file_path}")
     else:
         print("Failed to write HTML file")
