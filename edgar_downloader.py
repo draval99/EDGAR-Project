@@ -9,6 +9,7 @@ def write_page(url, file_path):
     # Check if the response was successful
     if response.status_code == 200:
         # Write the HTML content to the file
+        
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(response.text)
             f.close()
@@ -30,6 +31,17 @@ def download_files_10k(ticker : str, destination_folder : str):
                     Note: Does not need the root file path
 
     '''
+    import os
+
+    # Get a list of all the file names in the folder
+    file_names = os.listdir(destination_folder)
+
+    # Loop through the file names and delete each file
+    for file_name in file_names:
+        file_path = os.path.join(destination_folder, file_name)
+        os.remove(file_path)
+
+
     def get_CIK_number(ticker : str, padded = True):
         '''
         
