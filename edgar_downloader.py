@@ -1,4 +1,5 @@
 import requests
+import time
 
 #Athul
 
@@ -72,6 +73,7 @@ def download_files_10k(ticker : str, destination_folder : str):
     
     submissions_url = 'https://data.sec.gov/submissions/CIK' + cik_number + '.json'
     r = requests.get(submissions_url, headers = {'User-Agent' : 'williamrenouf@kubrickgroup.com'})
+    time.sleep(0.1) # To avoid hitting the cap on api calls
     response = r.json()
     
     form_type_list = response['filings']['recent']['primaryDocDescription']
