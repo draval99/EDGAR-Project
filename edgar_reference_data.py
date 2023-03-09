@@ -22,10 +22,12 @@ def get_sp100():
 
 def get_sentiment_word_dict():
 
-    df = pd.read_csv('https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik/view')
-    display(df.head(5))
+    df = pd.read_csv('https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik/edit')
+    #display(df.head(5))
     df = df.drop(columns = ['Seq_num', 'Word Count', 'Word Proportion', 'Average Proportion', 'Std Dev', 'Doc Count', 'Syllables', 'Source'], axis=1)
-    
+    #headers = ['Negative']
+    #df1 = df[]
+    #display(df)
     
     negative_list =[]    
     positive_list = []
