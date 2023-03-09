@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from IPython.display import display
 import csv
+import urllib.request
 
 
 def get_sp100():
@@ -61,12 +62,10 @@ def get_yahoo_data(start_date, end_date, tickers):
 
 def get_sentiment_word_dict():
 
-    r = requests.get('https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik')
-    text = r.iter_lines()
-    reader = csv.reader(text, delimiter = ',')
-    print(reader)
-    print(text)
-    df = pd.DataFrame()
+    url = 'https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik/view'
+    path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
+    df = pd.read_csv(path)
+    df.drop()
     
     negative_list =[]    
     positive_list = []
