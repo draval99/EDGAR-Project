@@ -3,11 +3,11 @@ from edgar_cleaner import write_clean_html_text_files
 from edgar_reference_data import get_sp100, get_yahoo_data
 from edgar_sentiment_wordcount import write_document_sentiments
 
-#for ticker in get_sp100():
-    #download_files_10k(ticker, R'C:\edgar\test_folder_raw')
+for ticker in get_sp100():
+    download_files_10k(ticker, R'C:\edgar\test_folder_raw')
 
-#write_clean_html_text_files(R'C:\edgar\test_folder_raw', R'C:\edgar\test_folder_clean')
+write_clean_html_text_files(R'C:\edgar\test_folder_raw', R'C:\edgar\test_folder_clean')
 
-#write_document_sentiments(R'C:\edgar\test_folder_clean', R'C:\edgar\test_folder_csv\test_csv.csv')
+write_document_sentiments(R'C:\edgar\test_folder_clean', R'C:\edgar\test_folder_csv\test_csv.csv')
 
 get_yahoo_data('2018-01-01', '2022-01-01', get_sp100())
