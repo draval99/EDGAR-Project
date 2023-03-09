@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-#from edgar_reference_data import get_sentiment_word_dict
+from edgar_reference_data import get_sentiment_word_dict
 
 def write_document_sentiments(input_folder : str, output_file : str):
     '''

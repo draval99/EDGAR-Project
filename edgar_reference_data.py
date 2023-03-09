@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 def get_sp100():
     url = 'https://en.wikipedia.org/wiki/S%26P_100' # URL to scrape
@@ -19,7 +20,7 @@ def get_sp100():
     return tickers
 
 def get_sentiment_word_dict():
-    import pandas as pd
+
     df = pd.read_csv('Loughran-McDonald_MasterDictionary_1993-2021 (1).csv')
     df = df.drop(['Seq_num', 'Word Count', 'Word Proportion', 'Average Proportion', 'Std Dev', 'Doc Count', 'Syllables', 'Source'], axis=1)
     
