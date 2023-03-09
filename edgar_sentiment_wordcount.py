@@ -58,12 +58,3 @@ def write_document_sentiments(input_folder : str, output_file : str):
         df.insert(0, 'report_type', file_name[1], inplace = True)
         df.insert(0, 'symbol', file_name[0], inplace = True)
         df.to_csv(file)
-
-    
-{
-    positive : [good, nice]
-
-}
-
-dict['positive'] == [good, nice]
-
