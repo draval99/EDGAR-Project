@@ -27,8 +27,8 @@ def write_document_sentiments(input_folder : str, output_file : str):
         'uncertainty': 0,
         'litigious': 0,
         'constraining': 0,
-        'superflous':0,
-        'interesting':0,
+        'superflous': 0,
+        'interesting': 0,
         'modal': 0
         }
 
