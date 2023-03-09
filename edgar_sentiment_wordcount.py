@@ -8,7 +8,7 @@ def write_document_sentiments(input_folder : str, output_file : str):
     dataframe of word sentiments for each year
     '''
 
-   # List of filenames from the input folder
+    # List of filenames from the input folder
     file_names = os.listdir(input_folder)
 
     # Define a dictionary to store the sentiment counts
@@ -17,6 +17,7 @@ def write_document_sentiments(input_folder : str, output_file : str):
 
     # Call dictionary from part 3C
     sent_dict = get_sentiment_word_dict()
+    
 
     # Loop through each file in the input folder
     for filename in os.listdir(input_folder):
@@ -47,24 +48,23 @@ def write_document_sentiments(input_folder : str, output_file : str):
         superfluous_count = 0
         interesting_count = 0
         modal_count = 0
+
         for word in text.split():
-            if word.upper() in sent_dict['positive']:
+            if word.upper() in sent_dict['Positive']:
                 positive_count += 1
-            elif word.upper() in sent_dict['negative']:
+            elif word.upper() in sent_dict['Negative']:
                 negative_count += 1
-            elif word in sent_dict['uncertainty']:
+            elif word in sent_dict['Uncertainty']:
                 uncertainty_count += 1
-            elif word in sent_dict['litigious']:
+            elif word in sent_dict['Litigious']:
                 litigious_count += 1
-            elif word in sent_dict['constraining']:
+            elif word in sent_dict['Constraining']:
                 constraining_count += 1
-            elif word in sent_dict['superfluous']:
+            elif word in sent_dict['Superfluous']:
                 superfluous_count += 1
-            elif word in sent_dict['interesting']:
-                interesting_count += 1
-            elif word in sent_dict['strong modal']:
+            elif word in sent_dict['Strong modal']:
                 modal_count += 1
-            elif word in sent_dict['weak modal']:
+            elif word in sent_dict['Weak modal']:
                 modal_count += 1
         print(filename)
 
@@ -82,7 +82,7 @@ def write_document_sentiments(input_folder : str, output_file : str):
 
         # Add the dictionary to the list 'data' to get a list of dictionaries, to make an output dataframe
         data.append(sentiment_counts)
-    
+        
     with open(output_file, 'w', encoding = 'UTF8', newline = '') as file:
         df = pd.DataFrame.from_dict(data)
         file_name = filename.replace('.txt', '').split('_')

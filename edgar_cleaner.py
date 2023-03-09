@@ -34,7 +34,7 @@ def write_clean_html_text_files(input_folder : str, dest_folder : str):
 
 
     # Get a list of all the file names in the folder
-    file_names = os.listdir(dest_folder)
+    file_names = os.listdir(input_folder)
     # Loop through the file names and delete each file
     #for file_name in file_names:
     #    file_path = os.path.join(dest_folder, file_name)

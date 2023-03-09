@@ -60,13 +60,8 @@ def get_yahoo_data(start_date, end_date, tickers):
 
 
 def get_sentiment_word_dict():
-
-    r = requests.get('https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik')
-    text = r.iter_lines()
-    reader = csv.reader(text, delimiter = ',')
-    print(reader)
-    print(text)
-    df = pd.DataFrame()
+    df = pd.read_csv('Loughran-McDonald_MasterDictionary_1993-2021.csv')
+    df = df.drop(['Seq_num', 'Word Count', 'Word Proportion', 'Average Proportion', 'Std Dev', 'Doc Count', 'Syllables', 'Source'], axis=1)
     
     negative_list =[]    
     positive_list = []
