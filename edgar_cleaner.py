@@ -10,42 +10,44 @@ import edgar_downloader
 
 
 
-def clean_html_text(html_text):
+def clean_html_text(html_text : str):
+    '''
+    help
+    '''
 
     soup = BeautifulSoup(html_text, 'html.parser')
     text = soup.get_text()
 
 
     clean_text = re.sub('[^A-Za-z0-9]+', ' ', text)
-    print(clean_text)
+
+    return clean_text
 
 
 
 
-def write_clean_html_text_files(input_folder, dest_folder):
+def write_clean_html_text_files(input_folder : str, dest_folder : str):
+    '''
+    help message
+    '''
 
 
     # Get a list of all the file names in the folder
     file_names = os.listdir(input_folder)
 
-
     # Loop through the file names
 
     for file_name in file_names:
-        
-        my_file = open(file_name,'r')
+        with open(input_folder +  f'\{file_name}' , 'r') as input_file:
+            txt_file_name = file_name.replace('html', 'txt')
+            with open(dest_folder + f'\{txt_file_name}', 'w') as output_file:
 
-        html_text = my_file.read()
+                html_text = input_file.read()
 
-        clean_file = clean_html_text(html_text)
+                clean_file = clean_html_text(html_text)
 
-        #<ticker>_10-k_<filing_date>.txt.
-
-        new_file_name = file_name.remove('html') 
-        
-        file_name = new_file_name + '.txt'
-
-        file_path = os.path.join(dest_folder, file_name)
+                output_file.write(clean_file)
+                output_file.close()
 
 
 
