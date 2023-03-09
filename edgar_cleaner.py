@@ -41,7 +41,6 @@ def write_clean_html_text_files(input_folder : str, dest_folder : str):
     #    os.remove(file_path)
 
     # Loop through the file names
-
     for file_name in file_names:
         with open(input_folder +  f'\{file_name}' , 'r') as input_file:
             txt_file_name = file_name.replace('html', 'txt')

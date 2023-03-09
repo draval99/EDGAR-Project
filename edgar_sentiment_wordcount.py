@@ -18,10 +18,12 @@ def write_document_sentiments(input_folder : str, output_file : str):
     # Call dictionary from part 3C
     sent_dict = get_sentiment_word_dict()
     
+    
 
     # Loop through each file in the input folder
     for filename in os.listdir(input_folder):
         
+        print(filename)
         # Create a dictionary for each file, counting how many different sentiment words are present in that document
         sentiment_counts = {
         'negative': 0,
@@ -29,8 +31,8 @@ def write_document_sentiments(input_folder : str, output_file : str):
         'uncertainty': 0,
         'litigious': 0,
         'constraining': 0,
-        'superfluous': 0,
-        'interesting': 0,
+        'superfluous':0,
+        'interesting':0,
         'modal': 0
         }
 
@@ -83,6 +85,8 @@ def write_document_sentiments(input_folder : str, output_file : str):
         # Add the dictionary to the list 'data' to get a list of dictionaries, to make an output dataframe
         data.append(sentiment_counts)
         
+    print(data)
+
     with open(output_file, 'w', encoding = 'UTF8', newline = '') as file:
         df = pd.DataFrame.from_dict(data)
         file_name = filename.replace('.txt', '').split('_')
@@ -90,3 +94,5 @@ def write_document_sentiments(input_folder : str, output_file : str):
         df.insert(0, 'report_type', file_name[1])
         df.insert(0, 'symbol', file_name[0])
         df.to_csv(file, index = False)
+
+
