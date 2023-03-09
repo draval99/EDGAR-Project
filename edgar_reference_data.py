@@ -40,3 +40,4 @@ def get_sentiment_word_dict():
     my_dict = {'Negative': negative_list, 'Positive': positive_list, 'Uncertainty': uncertainty_list}
 
     return my_dict
+
