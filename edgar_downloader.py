@@ -1,5 +1,6 @@
 import requests
 import time
+import os
 
 #Athul
 
@@ -32,7 +33,7 @@ def download_files_10k(ticker : str, destination_folder : str):
                     Note: Does not need the root file path
 
     '''
-    import os
+    
 
     # Get a list of all the file names in the folder
     file_names = os.listdir(destination_folder)
