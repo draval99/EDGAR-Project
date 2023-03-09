@@ -96,7 +96,7 @@ def download_files_10k(ticker : str, destination_folder : str):
     for i,num in enumerate(primary_document_list):
         ten_k_url = 'https://www.sec.gov/Archives/edgar/data/' + get_CIK_number(ticker, False) + '/' + accession_number_list[i] + '/' + num
         date = date_list[i]
-        filepath = destination_folder + f'\{ticker}' + '_' + f'{date}.html'
+        filepath = destination_folder + f'\{ticker}' + '_' + '10-k_' + f'{date}.html'
         write_page(ten_k_url, filepath)
     
 

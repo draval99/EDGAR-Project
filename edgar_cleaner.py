@@ -53,6 +53,7 @@ def write_clean_html_text_files(input_folder : str, dest_folder : str):
 
                 output_file.write(clean_file)
                 output_file.close()
+                print(f'{file_name} cleaned succesfully')
 
 
 
