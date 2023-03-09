@@ -8,7 +8,7 @@ def write_document_sentiments(input_folder : str, output_file : str):
     dataframe of word sentiments for each year
     '''
 
-   # List of filenames from the input folder
+    # List of filenames from the input folder
     file_names = os.listdir(input_folder)
 
     # Define a dictionary to store the sentiment counts
@@ -18,6 +18,8 @@ def write_document_sentiments(input_folder : str, output_file : str):
     # Call dictionary from part 3C
     sent_dict = get_sentiment_word_dict()
     
+    
+
     # Loop through each file in the input folder
     for filename in os.listdir(input_folder):
         
@@ -46,6 +48,7 @@ def write_document_sentiments(input_folder : str, output_file : str):
         litigious_count = 0
         constraining_count = 0
         modal_count = 0
+
         for word in text.split():
             if word.upper() in sent_dict['Positive']:
                 positive_count += 1
