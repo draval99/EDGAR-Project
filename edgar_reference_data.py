@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+from IPython.display import display
 
 def get_sp100():
     url = 'https://en.wikipedia.org/wiki/S%26P_100' # URL to scrape
@@ -21,8 +22,9 @@ def get_sp100():
 
 def get_sentiment_word_dict():
 
-    df = pd.read_csv('Loughran-McDonald_MasterDictionary_1993-2021 (1).csv')
-    df = df.drop(['Seq_num', 'Word Count', 'Word Proportion', 'Average Proportion', 'Std Dev', 'Doc Count', 'Syllables', 'Source'], axis=1)
+    df = pd.read_csv('https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik/view')
+    display(df.head(5))
+    df = df.drop(columns = ['Seq_num', 'Word Count', 'Word Proportion', 'Average Proportion', 'Std Dev', 'Doc Count', 'Syllables', 'Source'], axis=1)
     
     
     negative_list =[]    
