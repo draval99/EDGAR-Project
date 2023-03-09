@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from IPython.display import display
 import csv
+import urllib.request
 
 
 def get_sp100():
@@ -60,10 +61,12 @@ def get_yahoo_data(start_date, end_date, tickers):
 
 
 
+
 def get_sentiment_word_dict():
     import pandas as pd 
     df = pd.read_csv('Loughran-McDonald_MasterDictionary_1993-2021.csv')
     df = df.drop(['Seq_num', 'Word Count', 'Word Proportion', 'Average Proportion', 'Std Dev', 'Doc Count', 'Syllables', 'Source'], axis=1)
+
     
     negative_list =[]    
     positive_list = []
