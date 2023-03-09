@@ -9,7 +9,7 @@ def write_document_sentiments(input_folder : str, output_file : str):
 
    # List of filenames from the input folder
     import os
-    file_names = os.listdir(destination_folder)
+    file_names = os.listdir(input_folder)
 
     # Define a dictionary to store the sentiment counts
     data=[]
@@ -28,7 +28,11 @@ def write_document_sentiments(input_folder : str, output_file : str):
             text = f.read()
 
         # Count the number of words in the document belonging to each sentiment
-        positive_count = text.count('positive_sentiment_word')
+        positive_count = text.count('Positive')
+        for word in text.split():
+            if word in sentiment_dict
+
+
         negative_count = text.count('negative_sentiment_word')
         neutral_count = text.count('neutral_sentiment_word')
 
@@ -48,6 +52,6 @@ def write_document_sentiments(input_folder : str, output_file : str):
         df.insert(0, 'symbol', file_name[0], inplace = True)
         df.to_csv(file)
 
-    
+
 
 
