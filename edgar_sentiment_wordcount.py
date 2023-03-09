@@ -17,7 +17,7 @@ def write_document_sentiments(input_folder : str, output_file : str):
 
     # Call dictionary from part 3C
     sent_dict = get_sentiment_word_dict()
-    
+
     # Loop through each file in the input folder
     for filename in os.listdir(input_folder):
         
@@ -28,8 +28,8 @@ def write_document_sentiments(input_folder : str, output_file : str):
         'uncertainty': 0,
         'litigious': 0,
         'constraining': 0,
-        'superfluous':0,
-        'interesting':0,
+        'superfluous': 0,
+        'interesting': 0,
         'modal': 0
         }
 
