@@ -21,16 +21,16 @@ def write_document_sentiments(input_folder : str, output_file : str):
     # Loop through each file in the input folder
     for filename in os.listdir(input_folder):
         
-        print(filename)
         # Create a dictionary for each file, counting how many different sentiment words are present in that document
         sentiment_counts = {
+        'ticker': 0,
+        'file_type': 0,
+        'filing_date': 0,
         'negative': 0,
         'positive': 0,
         'uncertainty': 0,
         'litigious': 0,
         'constraining': 0,
-        'superfluous':0,
-        'interesting':0,
         'modal': 0
         }
 
@@ -45,30 +45,22 @@ def write_document_sentiments(input_folder : str, output_file : str):
         uncertainty_count = 0
         litigious_count = 0
         constraining_count = 0
-        superfluous_count = 0
-        interesting_count = 0
         modal_count = 0
         for word in text.split():
             if word.upper() in sent_dict['Positive']:
                 positive_count += 1
-            elif word.upper() in sent_dict['Negative']:
+            if word.upper() in sent_dict['Negative']:
                 negative_count += 1
-            elif word in sent_dict['Uncertainty']:
+            if word.upper() in sent_dict['Uncertainty']:
                 uncertainty_count += 1
-            elif word in sent_dict['litigious']:
+            if word.upper() in sent_dict['Litigious']:
                 litigious_count += 1
-            elif word in sent_dict['constraining']:
+            if word.upper() in sent_dict['Constraining']:
                 constraining_count += 1
-            elif word in sent_dict['superfluous']:
-                superfluous_count += 1
-            elif word in sent_dict['interesting']:
-                interesting_count += 1
-            elif word in sent_dict['strong modal']:
+            if word.upper() in sent_dict['Strong_Modal']:
                 modal_count += 1
-            elif word in sent_dict['weak modal']:
+            if word.upper() in sent_dict['Weak_Modal']:
                 modal_count += 1
-        print(filename)
-
 
 
         # Add the counts to the sentiment_counts dictionary
@@ -77,20 +69,21 @@ def write_document_sentiments(input_folder : str, output_file : str):
         sentiment_counts['uncertainty'] = uncertainty_count
         sentiment_counts['litigious'] = litigious_count
         sentiment_counts['constraining'] = constraining_count
-        sentiment_counts['superfluous'] = superfluous_count
-        sentiment_counts['interesting'] = interesting_count
         sentiment_counts['modal'] = modal_count
+
+        # Add the filename chars to dictionary
+
+        file_name = filename.replace('.txt', '').split('_')
+        sentiment_counts['ticker'] = file_name[0]
+        sentiment_counts['file_type'] = file_name[1]
+        sentiment_counts['filing_date'] = file_name[2]
 
         # Add the dictionary to the list 'data' to get a list of dictionaries, to make an output dataframe
         data.append(sentiment_counts)
-    print(data)
+        print(f'Added {filename} to csv file')
 
     with open(output_file, 'w', encoding = 'UTF8', newline = '') as file:
         df = pd.DataFrame.from_dict(data)
-        file_name = filename.replace('.txt', '').split('_')
-        df.insert(0, 'filing_date', file_name[2])
-        df.insert(0, 'report_type', file_name[1])
-        df.insert(0, 'symbol', file_name[0])
         df.to_csv(file, index = False)
 
 

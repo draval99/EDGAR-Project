@@ -21,11 +21,16 @@ def get_sp100():
         ticker = row.find_all('td')[0].text.strip()
         tickers.append(ticker)
 
+    tickers.remove('BRK.B')
+
     return tickers
 
 
 
 def get_yahoo_data(start_date, end_date, tickers):
+    '''
+    help
+    '''
     from yahoofinancials import YahooFinancials
     import pandas as pd
     
@@ -34,7 +39,6 @@ def get_yahoo_data(start_date, end_date, tickers):
     
     for ticker in tickers:
         
-
         data = YahooFinancials(ticker).get_historical_price_data(start_date, end_date, 'daily')
         df = data[ticker]['prices']
         df = pd.DataFrame(df)
@@ -42,20 +46,21 @@ def get_yahoo_data(start_date, end_date, tickers):
         df['formatted_date'] = pd.to_datetime(df['formatted_date'], format='%Y-%m-%d')
 
         last_row_index = df.index[-1]
-        #df['1daily_return'] = df.apply(lambda row: (df.loc[row.name + 1, 'adjclose']- row['adjclose']) /row['adjclose']  if row.name < len(df) else 0, axis=1)
-        #df['2daily_return'] = df.apply(lambda row: (df.loc[row.name + 2, 'adjclose']- row['adjclose']) /row['adjclose']  if row.name < len(df) else 0, axis=1)
 
         df['1dailyreturn'] = (df['adjclose'].shift(-1) - df['adjclose'])/df['adjclose']
         df['2dailyreturn'] = (df['adjclose'].shift(-2) - df['adjclose'])/df['adjclose']
-        df['5dailyreturn'] = (df['adjclose'].shift(-3) - df['adjclose'])/df['adjclose']
+        df['3dailyreturn'] = (df['adjclose'].shift(-3) - df['adjclose'])/df['adjclose']
         df['5dailyreturn'] = (df['adjclose'].shift(-5) - df['adjclose'])/df['adjclose']
         df['10dailyreturn'] = (df['adjclose'].shift(-10) - df['adjclose'])/df['adjclose']
         df['Symbol'] = ticker
         df.rename(columns = {'adjclose':'price'}, inplace = True)
         df.rename(columns = {'formatted_date':'date'}, inplace = True)
-        finaldf = pd.concat([df, finaldf], axis =0)
+        finaldf = pd.concat([df, finaldf], axis = 0)
+        print(f'yahoo data found for {ticker}')
     
-    return finaldf
+    with open(R'C:\edgar\test_folder_csv\yahoo_csv.csv', 'w', newline = '') as output_file:
+        finaldf.to_csv(output_file, index = False)
+
 
 
 
@@ -78,17 +83,17 @@ def get_sentiment_word_dict():
     for i in range(len(df)):
         if df['Negative'][i] != 0:
             negative_list.append(df['Word'][i])
-        elif df['Positive'][i] != 0:
+        if df['Positive'][i] != 0:
             positive_list.append(df['Word'][i])
-        elif df['Uncertainty'][i] != 0:
+        if df['Uncertainty'][i] != 0:
             uncertainty_list.append(df['Word'][i])
-        elif df['Litigious'][i] != 0:
+        if df['Litigious'][i] != 0:
             litigious_list.append(df['Word'][i])
-        elif df['Strong_Modal'][i] != 0:
+        if df['Strong_Modal'][i] != 0:
             strong_modal_list.append(df['Word'][i])
-        elif df['Weak_Modal'][i] != 0:
+        if df['Weak_Modal'][i] != 0:
             weak_modal_list.append(df['Word'][i])
-        elif df['Constraining'][i] != 0:
+        if df['Constraining'][i] != 0:
             contraining_list.append(df['Word'][i])
         
 
