@@ -1,5 +1,6 @@
-
+import os
 import pandas as pd
+from edgar_reference_data import get_sentiment_word_dict()
 
 def write_document_sentiments(input_folder : str, output_file : str):
     '''
@@ -8,26 +9,31 @@ def write_document_sentiments(input_folder : str, output_file : str):
     '''
 
    # List of filenames from the input folder
-    import os
-    file_names = os.listdir(destination_folder)
+    file_names = os.listdir(input_folder)
 
     # Define a dictionary to store the sentiment counts
     data=[]
     filenames = []
+
+    # Call dictionary from part 3C
+    sent_dict = get_sentiment_word_dict()
     # Loop through each file in the input folder
     for filename in os.listdir(input_folder):
+        
         # Create a dictionary for each file, counting how many different sentiment words are present in that document
         sentiment_counts = {
         'positive': 0,
         'negative': 0,
         'neutral': 0
         }
+
         # Read the file
         filenames.append(filename)
         with open(os.path.join(input_folder, filename), 'r') as f:
             text = f.read()
-
+        
         # Count the number of words in the document belonging to each sentiment
+        
         positive_count = text.count('positive_sentiment_word')
         negative_count = text.count('negative_sentiment_word')
         neutral_count = text.count('neutral_sentiment_word')
@@ -49,5 +55,10 @@ def write_document_sentiments(input_folder : str, output_file : str):
         df.to_csv(file)
 
     
+{
+    positive : [good, nice]
 
+}
+
+dict['positive'] == [good, nice]
 
