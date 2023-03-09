@@ -62,11 +62,9 @@ def write_document_sentiments(input_folder : str, output_file : str):
                 litigious_count += 1
             elif word in sent_dict['Constraining']:
                 constraining_count += 1
-            elif word in sent_dict['Superfluous']:
-                superfluous_count += 1
-            elif word in sent_dict['Strong modal']:
+            elif word in sent_dict['Strong_modal']:
                 modal_count += 1
-            elif word in sent_dict['Weak modal']:
+            elif word in sent_dict['Weak_modal']:
                 modal_count += 1
         print(filename)
 
