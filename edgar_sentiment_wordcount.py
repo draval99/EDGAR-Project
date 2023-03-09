@@ -13,13 +13,13 @@ def write_document_sentiments(input_folder : str, output_file : str):
         sentiment_data = file.get_sentiment_word_dict() # Part 3C function - Outputs dictionary of word sentiments
         data.append(sentiment_data)
     
-    with open(output_file, 'w', encoding = 'UTF8') as file:
+    with open(output_file, 'w', encoding = 'UTF8') as output_file:
         df = pd.DataFrame.from_dict(data)
-        file_name = input_file.split('_')
+        file_name = input_file_name.split('_')
         df.insert(0, 'filing_date', file_name[2], inplace = True)
         df.insert(0, 'report_type', file_name[1], inplace = True)
         df.insert(0, 'symbol', file_name[0], inplace = True)
-        df.to_csv(file)
+        df.to_csv(output_file)
 
     
 
