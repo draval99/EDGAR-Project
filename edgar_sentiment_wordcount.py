@@ -29,15 +29,18 @@ from collections import Counter
 
 def write_document_sentiments(input_folder, output_file):
     # Define a dictionary to store the sentiment counts
-    sentiment_counts = {
+    data=[]
+    filenames = []
+    # Loop through each file in the input folder
+    for filename in os.listdir(input_folder):
+        # Create a dictionary for each file, counting how many different sentiment words are present in that document
+        sentiment_counts = {
         'positive': 0,
         'negative': 0,
         'neutral': 0
-    }
-
-    # Loop through each file in the input folder
-    for filename in os.listdir(input_folder):
+        }
         # Read the file
+        filenames.append(filename)
         with open(os.path.join(input_folder, filename), 'r') as f:
             text = f.read()
 
@@ -50,3 +53,6 @@ def write_document_sentiments(input_folder, output_file):
         sentiment_counts['positive'] += positive_count
         sentiment_counts['negative'] += negative_count
         sentiment_counts['neutral'] += neutral_count
+
+        # Add the dictionary to the list 'data' to get a list of dictionaries, to make an output dataframe
+        data.append(sentiment_counts)
