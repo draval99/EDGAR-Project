@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from IPython.display import display
+import csv
+
 
 def get_sp100():
     url = 'https://en.wikipedia.org/wiki/S%26P_100' # URL to scrape
@@ -22,20 +24,23 @@ def get_sp100():
 
 def get_sentiment_word_dict():
 
-    df = pd.read_csv('https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik')
-    df1 = df.drop(columns = ['Seq_num', 'Word Count', 'Word Proportion', 'Average Proportion', 'Std Dev', 'Doc Count', 'Syllables', 'Source'], axis=1)
-    
+    r = requests.get('https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik')
+    text = r.iter_lines()
+    reader = csv.reader(text, delimiter = ',')
+    print(reader)
+    print(text)
+    df = pd.DataFrame()
     
     negative_list =[]    
     positive_list = []
     uncertainty_list = []
-    for i in range(len(df1)):
-        if df1['Negative'][i] != 0:
-            negative_list.append(df1['Word'][i])
-        elif df1['Positive'][i] != 0:
-            positive_list.append(df1['Word'][i])
-        elif df1['Uncertainty'][i] != 0:
-            uncertainty_list.append(df1['Word'][i])
+    for i in range(len(df)):
+        if df['Negative'][i] != 0:
+            negative_list.append(df['Word'][i])
+        elif df['Positive'][i] != 0:
+            positive_list.append(df['Word'][i])
+        elif df['Uncertainty'][i] != 0:
+            uncertainty_list.append(df['Word'][i])
 
 
 
