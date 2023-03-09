@@ -22,16 +22,21 @@ def write_document_sentiments(input_folder : str, output_file : str):
         
         # Create a dictionary for each file, counting how many different sentiment words are present in that document
         sentiment_counts = {
-        'positive': 0,
         'negative': 0,
-        'neutral': 0
+        'positive': 0,
+        'uncertainty': 0,
+        'litigious': 0,
+        'constraining': 0,
+        'superflous':0,
+        'interesting':0,
+        'modal': 0
         }
 
         # Read the file
         filenames.append(filename)
         with open(os.path.join(input_folder, filename), 'r') as f:
             text = f.read()
-        
+
         # Count the number of words in the document belonging to each sentiment
         
         positive_count = text.count('positive_sentiment_word')
