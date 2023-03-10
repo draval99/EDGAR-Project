@@ -68,10 +68,11 @@ def get_yahoo_data(start_date, end_date, tickers):
 
 
 def get_sentiment_word_dict():
-    import pandas as pd 
-    df = pd.read_csv('Loughran-McDonald_MasterDictionary_1993-2021.csv')
-    df = df.drop(['Seq_num', 'Word Count', 'Word Proportion', 'Average Proportion', 'Std Dev', 'Doc Count', 'Syllables', 'Source'], axis=1)
+    import pandas as pd
 
+    url = 'https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik/view'
+    path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
+    df = pd.read_csv(path)
     
     negative_list =[]    
     positive_list = []
@@ -95,6 +96,7 @@ def get_sentiment_word_dict():
             weak_modal_list.append(df['Word'][i])
         if df['Constraining'][i] != 0:
             contraining_list.append(df['Word'][i])
+        
         
 
 
