@@ -68,10 +68,12 @@ def get_yahoo_data(start_date, end_date, tickers):
 
 
 def get_sentiment_word_dict():
-    import pandas as pd 
-    df = pd.read_csv('Loughran-McDonald_MasterDictionary_1993-2021.csv')
-    df = df.drop(['Seq_num', 'Word Count', 'Word Proportion', 'Average Proportion', 'Std Dev', 'Doc Count', 'Syllables', 'Source'], axis=1)
+    import pandas as pd
 
+    url = 'https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik/view'
+    path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
+    df = pd.read_csv(path)
+    df.drop()
     
     negative_list =[]    
     positive_list = []
@@ -80,6 +82,7 @@ def get_sentiment_word_dict():
     strong_modal_list = []
     weak_modal_list = []
     contraining_list = []
+    total_count = len(df)
     for i in range(len(df)):
         if df['Negative'][i] != 0:
             negative_list.append(df['Word'][i])
@@ -96,10 +99,11 @@ def get_sentiment_word_dict():
         if df['Constraining'][i] != 0:
             contraining_list.append(df['Word'][i])
         
+        
 
 
 
-    my_dict = {'Negative': negative_list, 'Positive': positive_list, 'Uncertainty': uncertainty_list, 'Litigious': litigious_list, 'Strong_Modal': strong_modal_list, 'Weak_Modal': weak_modal_list, 'Constraining': contraining_list}
+    my_dict = {'Negative': negative_list, 'Positive': positive_list, 'Uncertainty': uncertainty_list, 'Litigious': litigious_list, 'Strong_Modal': strong_modal_list, 'Weak_Modal': weak_modal_list, 'Constraining': contraining_list, 'Word Count' : total_count}
 
     return my_dict
 
