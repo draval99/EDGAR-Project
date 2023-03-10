@@ -33,7 +33,8 @@ def write_document_sentiments(input_folder : str, output_file : str):
         'uncertainty': 0,
         'litigious': 0,
         'constraining': 0,
-        'modal': 0
+        'modal': 0,
+        'word_count' : 0
         }
 
         # Read the file
@@ -48,6 +49,7 @@ def write_document_sentiments(input_folder : str, output_file : str):
         litigious_count = 0
         constraining_count = 0
         modal_count = 0
+        word_count = 0
 
         for word in text.split():
             if word.upper() in sent_dict['Positive']:
@@ -64,6 +66,7 @@ def write_document_sentiments(input_folder : str, output_file : str):
                 modal_count += 1
             if word.upper() in sent_dict['Weak_Modal']:
                 modal_count += 1
+            word_count += 1
 
 
         # Add the counts to the sentiment_counts dictionary
@@ -73,6 +76,7 @@ def write_document_sentiments(input_folder : str, output_file : str):
         sentiment_counts['litigious'] = litigious_count
         sentiment_counts['constraining'] = constraining_count
         sentiment_counts['modal'] = modal_count
+        sentiment_counts['word_count'] = word_count
 
         # Add the filename chars to dictionary
 
