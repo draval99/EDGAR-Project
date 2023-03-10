@@ -82,7 +82,6 @@ def get_sentiment_word_dict():
     strong_modal_list = []
     weak_modal_list = []
     contraining_list = []
-    total_count = len(df)
     for i in range(len(df)):
         if df['Negative'][i] != 0:
             negative_list.append(df['Word'][i])
@@ -103,7 +102,7 @@ def get_sentiment_word_dict():
 
 
 
-    my_dict = {'Negative': negative_list, 'Positive': positive_list, 'Uncertainty': uncertainty_list, 'Litigious': litigious_list, 'Strong_Modal': strong_modal_list, 'Weak_Modal': weak_modal_list, 'Constraining': contraining_list, 'Word Count' : total_count}
+    my_dict = {'Negative': negative_list, 'Positive': positive_list, 'Uncertainty': uncertainty_list, 'Litigious': litigious_list, 'Strong_Modal': strong_modal_list, 'Weak_Modal': weak_modal_list, 'Constraining': contraining_list}
 
     return my_dict
 
