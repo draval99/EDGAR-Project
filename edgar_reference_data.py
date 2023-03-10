@@ -73,7 +73,6 @@ def get_sentiment_word_dict():
     url = 'https://drive.google.com/file/d/17CmUZM9hGUdGYjCXcjQLyybjTrcjrhik/view'
     path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
     df = pd.read_csv(path)
-    df.drop()
     
     negative_list =[]    
     positive_list = []

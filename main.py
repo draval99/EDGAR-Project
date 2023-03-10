@@ -8,6 +8,6 @@ from edgar_sentiment_wordcount import write_document_sentiments
 
 #write_clean_html_text_files(R'C:\edgar\test_folder_raw', R'C:\edgar\test_folder_clean')
 
-#write_document_sentiments(R'C:\edgar\test_folder_clean', R'C:\edgar\test_folder_csv\test_csv.csv')
+write_document_sentiments(R'C:\edgar\test_folder_clean', R'C:\edgar\test_folder_csv\test_csv.csv')
 
-get_yahoo_data('2013-02-21', '2023-03-08', get_sp100())
+#get_yahoo_data('2013-02-21', '2023-03-08', get_sp100())
