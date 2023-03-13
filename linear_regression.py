@@ -18,6 +18,7 @@ df['uncertainty_prop'] = df['uncertainty'] / df['word_count']
 df['litigious_prop'] = df['litigious'] / df['word_count']
 df['constraining_prop'] = df['constraining'] / df['word_count']
 df['modal_prop'] = df['modal'] / df['word_count']
+df.drop(columns = ['positive', 'negative', 'uncertainty', 'litigious', 'constraining', 'modal', 'Symbol', 'date', 'ticker', 'filing_date', 'word_count', 'high', 'low', 'price', 'volume'], inplace = True)
 
 df_train, df_test = train_test_split(df, test_size = 0.2, random_state = 0)
 features = ['positive_prop', 'negative_prop', 'uncertainty_prop', 'litigious_prop', 'constraining_prop', 'modal_prop']
@@ -31,9 +32,18 @@ y_test = df_test['1dailyreturn']
 model = LinearRegression()
 model.fit(x_train, y_train)
 
-coef_list = model.coef_.tolist()
-coef_df = pd.DataFrame({'Features': features, 'Coeffieciencts': coef_list})
-print(coef_df)
+corr = df.corr()
+sns.heatmap(corr, 
+            xticklabels=corr.columns.values,
+            yticklabels=corr.columns.values,
+            vmin = -1,
+            vmax = 1,
+            cmap = 'PiYG',
+            center = 0,
+            annot = True)
+
+with open(R'C:\edgar\test_folder_csv\linear_correlation.csv', 'w', newline = '') as output_file:
+    corr.to_csv(output_file)
 
 y_pred = model.predict(x_test)
 r2 = r2_score(y_test, y_pred)

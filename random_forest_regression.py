@@ -7,6 +7,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestRegressor
 
 yahoo_filename = R'C:\edgar\test_folder_csv\yahoo_csv.csv'
 ten_k_filename = R'C:\edgar\test_folder_csv\test_csv.csv'
@@ -40,7 +41,7 @@ sns.heatmap(corr,
             cmap = 'PiYG',
             center = 0,
             annot = True)
-with open(R'C:\edgar\test_folder_csv\tree_correlation.csv', 'w', newline = '') as output_file:
+with open(R'C:\edgar\test_folder_csv\random_forest_correlation.csv', 'w', newline = '') as output_file:
     corr.to_csv(output_file)
 
 def hyper_tuning(x_train, y_train, x_test, y_test, depth_list, sample_list):
@@ -70,21 +71,17 @@ def hyper_tuning(x_train, y_train, x_test, y_test, depth_list, sample_list):
     return output
 
 depth_list = [3,4,5,6,7,8,9,10]
-sample_list = [0.3, 0.2, 0.15, 0.1, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02]
-hyper_parameters = hyper_tuning(x_train, y_train, x_test, y_test, depth_list, sample_list)
+est_list = [30,40,50,60,70,80,90,100,110,125,150,200,250]
+hyper_parameters = hyper_tuning(x_train, y_train, x_test, y_test, depth_list, est_list)
 
-dtr = DecisionTreeRegressor(min_samples_leaf = hyper_parameters['sample'].item(),
+rfr = RandomForestRegressor(min_samples_leaf = hyper_parameters['sample'].item(),
                             max_depth = hyper_parameters['depth'].item(),
                             random_state = 0)
-dtr.fit(x_train, y_train)
-y_pred = dtr.predict(x_test)
+rfr.fit(x_train, y_train)
+y_pred = rfr.predict(x_test)
 
 r2 = r2_score(y_test, y_pred)
 mse = mean_squared_error(y_test, y_pred)
 rmse = mse**0.5
 print(f'r2 score is: {r2}')
 print(f'rmse score is {rmse}')
-
-plt.figure(figsize = (10, 5))
-plot_tree(dtr, feature_names = features, max_depth = 3, filled = True)
-plt.show()
